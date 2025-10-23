@@ -1,79 +1,38 @@
- <!doctype html>
-<html lang="pt-br">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <!-- Nome do repositório no GitHub Pages -->
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
   <base href="/anima-app/">
 
-  <title>ÂNIMA</title>
-  <meta name="description" content="ÂNIMA — aplicativo web de bem-estar integrativo">
-  <meta name="theme-color" content="#d49bff">
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A new Flutter project.">
 
-  <!-- Manifest e ícones (opcional; remova se não tiver) -->
-  <!-- <link rel="manifest" href="./manifest.json"> -->
-  <!-- <link rel="icon" type="image/png" href="./icons/favicon.png"> -->
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="anima_app">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
-  <style>
-    html,body{
-      height:100%;margin:0;
-      background:linear-gradient(160deg,#f7f2ff 0%,#ffe6ff 100%);
-      font-family:"Segoe UI",Roboto,Arial,sans-serif;
-    }
-    #app-loader{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      height:100vh;
-      color:#7b4baa;
-      font-size:22px;
-      font-weight:500;
-      letter-spacing:0.5px;
-    }
-  </style>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>anima_app</title>
+  <link rel="manifest" href="manifest.json">
 </head>
 <body>
-  <noscript>Ative o JavaScript para usar o aplicativo ÂNIMA.</noscript>
-
-  <div id="app-loader">🌸 Carregando ÂNIMA…</div>
-
-  <!-- 🚫 Service Worker desativado -->
-  <!-- <script src="flutter_service_worker.js" defer></script> -->
-
-  <!-- Scripts principais do Flutter Web -->
-  <script src="./flutter.js?v=7" defer></script>
-  <script>
-    window.addEventListener('load', function () {
-      if (!window._flutter || !window._flutter.loader) {
-        document.getElementById('app-loader').textContent =
-          '⚠️ flutter.js não encontrado — envie o build do Flutter Web.';
-        return;
-      }
-
-      // Inicia o Flutter sem registrar Service Worker
-      window._flutter.loader.loadEntrypoint({
-        serviceWorker: { serviceWorkerVersion: null }
-      }).then(engineInitializer => engineInitializer.initializeEngine())
-        .then(appRunner => {
-          const script = document.createElement('script');
-          script.src = './main.dart.js?v=7';
-          script.defer = true;
-          script.onload = function () {
-            appRunner.runApp();
-            const loader = document.getElementById('app-loader');
-            if (loader) loader.remove();
-          };
-          script.onerror = function () {
-            document.getElementById('app-loader').textContent =
-              '⚠️ main.dart.js não encontrado — suba o arquivo do build Flutter.';
-          };
-          document.body.appendChild(script);
-        })
-        .catch(e => {
-          document.getElementById('app-loader').textContent =
-            'Erro ao iniciar o Flutter: ' + e;
-        });
-    });
-  </script>
+  <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>
