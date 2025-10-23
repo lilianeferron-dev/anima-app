@@ -1,23 +1,79 @@
-<base href="/anima-app/">
-<!doctype html>
+ <!doctype html>
 <html lang="pt-br">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <!-- Nome do repositório no GitHub Pages -->
   <base href="/anima-app/">
-  <title>ÂNIMA – Teste</title>
+
+  <title>ÂNIMA</title>
+  <meta name="description" content="ÂNIMA — aplicativo web de bem-estar integrativo">
+  <meta name="theme-color" content="#d49bff">
+
+  <!-- Manifest e ícones (opcional; remova se não tiver) -->
+  <!-- <link rel="manifest" href="./manifest.json"> -->
+  <!-- <link rel="icon" type="image/png" href="./icons/favicon.png"> -->
+
   <style>
-    html,body{height:100%;margin:0;font-family:system-ui,Segoe UI,Roboto,Arial}
-    .wrap{height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px}
-    h1{margin:0;font-size:40px}
-    .hint{opacity:.7}
+    html,body{
+      height:100%;margin:0;
+      background:linear-gradient(160deg,#f7f2ff 0%,#ffe6ff 100%);
+      font-family:"Segoe UI",Roboto,Arial,sans-serif;
+    }
+    #app-loader{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      height:100vh;
+      color:#7b4baa;
+      font-size:22px;
+      font-weight:500;
+      letter-spacing:0.5px;
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <h1>ÂNIMA OK ✅</h1>
-    <div class="hint">GitHub Pages está servindo o index corretamente.</div>
-  </div>
+  <noscript>Ative o JavaScript para usar o aplicativo ÂNIMA.</noscript>
+
+  <div id="app-loader">🌸 Carregando ÂNIMA…</div>
+
+  <!-- 🚫 Service Worker desativado -->
+  <!-- <script src="flutter_service_worker.js" defer></script> -->
+
+  <!-- Scripts principais do Flutter Web -->
+  <script src="./flutter.js?v=7" defer></script>
+  <script>
+    window.addEventListener('load', function () {
+      if (!window._flutter || !window._flutter.loader) {
+        document.getElementById('app-loader').textContent =
+          '⚠️ flutter.js não encontrado — envie o build do Flutter Web.';
+        return;
+      }
+
+      // Inicia o Flutter sem registrar Service Worker
+      window._flutter.loader.loadEntrypoint({
+        serviceWorker: { serviceWorkerVersion: null }
+      }).then(engineInitializer => engineInitializer.initializeEngine())
+        .then(appRunner => {
+          const script = document.createElement('script');
+          script.src = './main.dart.js?v=7';
+          script.defer = true;
+          script.onload = function () {
+            appRunner.runApp();
+            const loader = document.getElementById('app-loader');
+            if (loader) loader.remove();
+          };
+          script.onerror = function () {
+            document.getElementById('app-loader').textContent =
+              '⚠️ main.dart.js não encontrado — suba o arquivo do build Flutter.';
+          };
+          document.body.appendChild(script);
+        })
+        .catch(e => {
+          document.getElementById('app-loader').textContent =
+            'Erro ao iniciar o Flutter: ' + e;
+        });
+    });
+  </script>
 </body>
 </html>
-
